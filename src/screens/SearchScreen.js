@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, Image, TextInput, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import axios from 'axios';
 
@@ -15,13 +15,11 @@ const SearchScreen = () => {
             try {
                 const response = await axios.get('https://api.yelp.com/v3/businesses/search', {
                     headers: {
-                        "Access-Control-Allow-Origin": "*",
-                        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
                         Authorization: 'Bearer BaYm5A41L_Is6H3l6kQ6ci825XRTrklNHABFkrKVqGZ7hae4v0OR_2NjDfSFsig0vRnMeeDcjfMcalfplVtuDMTntIBkd_CA1HG9zj9C0jr6-pJox7YMKuaIQNX3ZXYx',
                     },
                     params: {
                         term: 'restaurants',
-                        location: 'New Zealand',
+                        location: 'San Francisco',
                     },
                 });
                 setRestaurants(response.data.businesses);
@@ -47,7 +45,7 @@ const SearchScreen = () => {
         <View style={styles.container}>
             <View style={styles.searchBar}>
                 <Ionicons name="search" size={24} color="black" />
-                <Text style={styles.searchText}>Search for restaurants</Text>
+                <TextInput placeholder='Search for restaurants' style={styles.searchText}></TextInput>
             </View>
             <FlatList
                 data={restaurants}
